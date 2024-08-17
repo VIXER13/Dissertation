@@ -67,8 +67,11 @@
         \setsecnumformat{\csname the#1\endcsname.\space}
     }
 }{%
+    \renewcommand\cftsectionaftersnum{.\quad}       % добавляет точку с пробелом после номера подраздела в оглавлении
+    \renewcommand\cftsubsectionaftersnum{.\quad}    % добавляет точку с пробелом после номера подподраздела в оглавлении
+    \renewcommand\cftsubsubsectionaftersnum{.\quad} % добавляет точку с пробелом после номера подподподраздела в оглавлении
     \AfterEndPreamble{% без этого polyglossia сама всё переопределяет
-        \setsecnumformat{\csname the#1\endcsname\quad}
+        \setsecnumformat{\csname the#1\endcsname.\quad}
     }
 }
 
