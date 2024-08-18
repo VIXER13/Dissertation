@@ -27,7 +27,8 @@
 
 Задачи в нелокальных постановках обладают достаточно большой вычислительной сложностью. Матрицы, получаемые после конечно-элементной аппроксимации, значительно более плотные по сравнению с их классическими аналогами, а также требуют огромных вычислительных ресурсов для их ассемблирования \cite{AMCSM2019}. Поэтому возникает спрос на использование всех возможностей современных компьютеров, а именно параллельные вычисления на машинах с общей и распределённой памятью. Но для того, чтобы полностью задействовать все вычислительные ресурсы, необходимо разработать алгоритм пригодный для распараллеливания.
 
-Для начала упростим аппроксимацию зоны нелокальности $S'(\boldsymbol{x})$, так как рассматриваемый ранее способ квадратурной аппроксимации, описанный формулой (\ref{eq:ApproxNonloc}) и представленный на Рис.~\ref{fig:ApproxSQ}, крайне неудобен для практической реализации, поэтому возникает идея упростить его и проводить аппроксимацию не относительно квадратурных узлов сетки, а относительно центров элементов, как это показано на Рис.~\ref{fig:ApproxSE}, где точками обозначены центры элементов, крестом центр элемента относительно которого проводится аппроксимация, серым цветом выделены элементы образующие аппроксимированную зону нелокальности, которая в свою очередь ограничена окружностью. Такой способ будем называть элементной аппроксимацией области нелокальности. Тогда в алгоритме ассемблирования нелокальной матрицы (\ref{eq:ApproxNonloc}) сможем поменять местами знаки суммирования, после чего сможем преобразовать его к следующему виду
+Для начала упростим аппроксимацию зоны нелокальности $S'(\boldsymbol{x})$, так как рассматриваемый ранее способ квадратурной аппроксимации, описанный формулой (\ref{eq:ApproxNonloc}) и представленный на Рис.~\ref{fig:ApproxSQ}, крайне неудобен для практической реализации. Поэтому возникает идея упростить его и проводить аппроксимацию не относительно квадратурных узлов сетки, а относительно центров элементов.
+На Рис.~\ref{fig:ApproxSE} крестом обозначен центр элемента относительно которого проводится аппроксимация, область нелокального влияния ограничена окружностью, точками обозначены центры элементов, а серым цветом выделены элементы образующие аппроксимированную область нелокальности. Тогда в алгоритме ассемблирования нелокальной матрицы (\ref{eq:ApproxNonloc}) сможем поменять местами знаки суммирования, после чего сможем преобразовать его к следующему виду
 \begin{gather}
 	\label{eq:ApproxNonlocByElem}
 	\widehat{\textbf{K}}^{NL}_{\mathcal{F}} =
@@ -51,7 +52,7 @@
 	\sum\limits_{q \in Q^e}
 	w_q \nabla N_n^e (\boldsymbol{x}_q) J_q^e
 	\sum\limits_{q' \in Q^{e'}}
-	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'}.
+	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'} \boldsymbol{E}_n.
 \end{gather}
 
 \begin{figure}[ht]
@@ -100,14 +101,14 @@
 	\sum\limits_{n \in S_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{q \in Q^e}
-	w_q q_V (\boldsymbol{x}_q) J_q^e,
+	w_q q_V (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather*}
 \begin{gather*}
 	\textbf{F} =
 	\sum\limits_{n \in \Gamma_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{q \in Q^e}
-	w_q f (\boldsymbol{x}_q) J_q^e,
+	w_q f (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather*}
 \begin{gather*}
 	\widehat{\textbf{K}}^{\alpha}_T =
@@ -115,14 +116,14 @@
 	\sum\limits_{e \in E^n}
 	\sum\limits_{m \in I^{e}}
 	\sum\limits_{q \in Q^e}
-	w_q \alpha N_n^e (\boldsymbol{x}_q) N_m^e (\boldsymbol{x}_q) J_q^e,
+	w_q \alpha N_n^e (\boldsymbol{x}_q) N_m^e (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n \otimes \boldsymbol{E}_m,
 \end{gather*}
 \begin{gather*}
 	\textbf{T}^{\alpha} =
 	\sum\limits_{n \in \Gamma_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{q \in Q^e}
-	w_q \alpha N_n^e (\boldsymbol{x}_q) T_{\alpha} (\boldsymbol{x}_q) J_q^e.
+	w_q \alpha N_n^e (\boldsymbol{x}_q) T_{\alpha} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n.
 \end{gather*}
 Проделаем те же выкладки и для векторов правой части (\ref{eq:InnerPressure}) --- (\ref{eq:LocalThermalExpansion}) и (\ref{eq:NonLocalThermalExpansionByElem}) уравнения равновесия (\ref{eq:StressSLAE})
 \begin{gather*}
@@ -130,21 +131,21 @@
 	\sum\limits_{n \in S_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{q \in Q^e}
-	w_q \boldsymbol{b} (\boldsymbol{x}_q) J_q^e,
+	w_q \boldsymbol{b} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather*}
 \begin{gather*}
 	\widehat{\textbf{P}} = 
 	\sum\limits_{e \in \Gamma_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q \boldsymbol{p} (\boldsymbol{x}_q) J_q^e,
+	w_q \boldsymbol{p} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather*}
 \begin{gather*}
 	\widehat{\textbf{E}}^L = 
 	\sum\limits_{n \in S_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{q \in Q^e}
-	w_q \nabla N_n^e (\boldsymbol{x}_q) \cdot \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_q) J_q^e,
+	w_q \nabla N_n^e (\boldsymbol{x}_q) \cdot \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather*}
 \begin{gather*}
 	\widehat{\textbf{E}}^{NL} = 
@@ -154,7 +155,7 @@
 	\sum\limits_{q \in Q^e}
 	w_q \nabla N_n^e (\boldsymbol{x}_q) J_q^e \cdot
 	\sum\limits_{q' \in Q^{e'}}
-	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'},
+	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'} \boldsymbol{E}_n,
 \end{gather*}
 Отметим, что при ассемблировании векторов на каждом вычислительном узле можем также ограничиться только теми строками, которые были получены при балансировке.
 
@@ -162,7 +163,7 @@
 
 При аппроксимации области нелокального влияния необходимо использовать метод поиска ближайших соседей, однако, важно выбрать оптимальный для рассматриваемых задач алгоритм. Наивный алгоритм линейного поиска имеет квадратичную сложность $O (N^2)$, в связи с чем на достаточно подробных сетках время поиска может быть весьма существенным. Поэтому построим алгоритм поиска в основе которого лежит k-d дерево \cite{kdtree}.
 
-Суть метода на основе k-d дерева заключается в разделении пространства занимаемого телом на равномерные ячейки, после разбиения на которые необходимо составить списки узлов соответствующие ячейкам, в которых они оказались. Размер ячеек следует брать равным радиусу поиска, тогда при поиске ближайших соседей его можно сузить до ячейки в которой находится этот узел и смежных ей ячейкам. Внутри ячеек можно использовать обычный линейный поиск, тогда сложность такого алгоритма можно оценить как $O(N \log N)$, что на подробных сетках заметно быстрее линейного поиска. Пример разбиения представлен на Рис. \ref{fig:SearchNeighbours}, где крестом указан рассматриваемый узел, тёмно-серым цветом выделена ячейка, которой принадлежит этот узел, а светло-серым смежные ей ячейки.
+Суть метода на основе k-d дерева заключается в разделении пространства занимаемого телом на равномерные ячейки, после разбиения на которые необходимо составить списки узлов соответствующие ячейкам, в которых они оказались. Размер ячеек следует брать равным радиусу поиска, тогда при поиске ближайших соседей поиск можно ограничить до ячейки в которой находится этот узел и смежных ей ячейкам. В качестве алгоритма поиска внутри ячеек использовать обычный линейный поиск, тогда сложность такого алгоритма можно оценить как $O(N \log N)$, что на подробных сетках заметно быстрее линейного поиска. Пример разбиения представлен на Рис. \ref{fig:SearchNeighbours}, где крестом указан рассматриваемый узел, тёмно-серым цветом выделена ячейка, которой принадлежит этот узел, а светло-серым смежные ей ячейки.
 
 \begin{figure}[ht]
     \centerfloat{

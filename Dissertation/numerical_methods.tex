@@ -166,14 +166,53 @@ $S^{e}$ --- область \mbox{элемента $e$.}
 \end{multline}
 где $i,j,k,l = \overline{1, 2}$; $m, n \in I^e$; $m, n \in I^e$; $m' \in I^{e'}$; $e \in S_h$; $e' \in S'_h$; $S'_h$ --- аппроксимированная зона нелокального влияния, детали аппроксимации которой рассмотрим далее в следующей главе.
 
-После интегрирования, о котором пойдёт речь в следующем разделе, итоговые системы можно записать в матрично-векторном виде
+Введём понятия вектора $\boldsymbol{E}_n$ --- единичный вектор размерности $M$, где $M$~--- количество узлов в сетке $S_h$. Переобозначим слагаемые уравнения теплопроводности (\ref{eq:ThermalIntegrateIndices}) при помощи символов
+\begin{gather*}
+	\widehat{\textbf{K}}^L_T = 
+	\int\limits_S
+	\lambda_{ij} N_{n, i}^{e} N_{m, j}^{e}
+	\boldsymbol{E}_n \otimes \boldsymbol{E}_m dS,
+\end{gather*}
+\begin{gather*}
+	\widehat{\textbf{K}}^{NL}_T =
+	\int\limits_S
+	N_{n, i}^{e}
+	\int\limits_{S'(\boldsymbol{x}') \cap S}
+	\varphi( \boldsymbol{x}, \boldsymbol{x}' )
+	\lambda_{ij}
+	N_{m', j}^{e'} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m'} dS'(\boldsymbol{x}) dS, \\
+	\widehat{\textbf{K}}^{\alpha}_T = \int\limits_{\Gamma_3} \alpha N_n^{e} N_m^{e} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m} d\Gamma, 
+	\quad
+	\textbf{Q} = \int\limits_S N_n^{e} q_V \boldsymbol{E}_n dS, \\
+	\textbf{F} = \int\limits_{\Gamma_2} N_n^{e} f \boldsymbol{E}_n d\Gamma,
+	\quad
+	\textbf{T}^{\alpha} = \int\limits_{\Gamma_3} \alpha N_n^{e} T_a(\boldsymbol{x}) \boldsymbol{E}_n d\Gamma.
+\end{gather*}
+Аналогичную процедуру сделаем и для уравнения равновесия (\ref{eq:StressIntegrateIndices})
+\begin{gather*}
+	\widehat{\textbf{K}}^L_E = \int\limits_S N_{n,i}^{e} C_{ijkl} \varepsilon_{kl} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m} dS, \\
+	\widehat{\textbf{K}}^{NL}_E = \int\limits_S N_{n, i}^{e} \int\limits_{S'(\boldsymbol{x}) \cap S}
+	\varphi(\boldsymbol{x}, \boldsymbol{x}') C_{ijkl} \varepsilon_{kl} dS'(\boldsymbol{x}) \boldsymbol{E}_n \otimes \boldsymbol{E}_{m'} dS,
+	\\
+	\widehat{\textbf{E}}^L = \int\limits_S N_{n,i}^{e} C_{ijkl} \alpha_{kl} \Delta T \boldsymbol{E}_n dS,
+	\\
+	\widehat{\textbf{E}}^{NL} = \int\limits_S N_{n,i}^{e}
+	\int\limits_{S'(\boldsymbol{x}) \cap S} 
+	\varphi(\boldsymbol{x}, \boldsymbol{x}')
+	C_{ijkl} \alpha_{kl} \Delta T \boldsymbol{E}_n dS'(\boldsymbol{x}) dS,
+	\\
+	\widehat{\textbf{B}} = \int\limits_S N_n^{e} b_j \boldsymbol{E}_n dS,
+	\quad 
+	\widehat{\textbf{P}} = \int\limits_{\Gamma_5} N_n^{e} p_j \boldsymbol{E}_n d\Gamma.
+\end{gather*}
+Тогда после интегрирования, о котором пойдёт речь в следующем разделе, итоговые системы можно записать в матрично-векторном виде
 \begin{gather}
 	\label{eq:ThermalSLAE}
 	\left( p_1 \widehat{\textbf{K}}^L_T + p_2 \widehat{\textbf{K}}^{NL}_T + \widehat{\textbf{K}}^{\alpha}_T \right) \cdot \textbf{T} = \textbf{Q} + \textbf{F} + \textbf{T}^{\alpha}, \\
 	\label{eq:StressSLAE}
 	\left( p_1 \widehat{\textbf{K}}^L_E + p_2 \widehat{\textbf{K}}^{NL}_E \right) \cdot \widehat{\textbf{U}} = p_1 \widehat{\textbf{E}}^L + p_2 \widehat{\textbf{E}}^{NL} + \widehat{\textbf{B}} + \widehat{\textbf{P}}.
 \end{gather}
-где $\widehat{\textbf{K}}^L_T$ и $\widehat{\textbf{K}}^{NL}_T$~---~матрицы локальной и нелокальной теплопроводности;
+Здесь $\widehat{\textbf{K}}^L_T$ и $\widehat{\textbf{K}}^{NL}_T$~---~матрицы локальной и нелокальной теплопроводности;
 $\widehat{\textbf{K}}^{\alpha}_T$~---~матрица теплопередачи;
 $\textbf{T}$ --- вектор искомых узловых значений температуры;
 $\textbf{Q}$ и $\textbf{F}$ --- векторы дискретизированных внутренних и внешних источников и стоков теплоты;
@@ -191,13 +230,13 @@ $\widehat{\textbf{E}}^L$ и $\widehat{\textbf{E}}^{NL}$ --- векторы ло�
 \begin{gather}
 	\label{eq:ThermalBlock}
 	\widetilde{\textbf{K}}_{nm}^{e_1 e_2} (\boldsymbol{x}, \boldsymbol{y}) =
-	\lambda_{ij} N_{n,i}^{e_1} (\boldsymbol{x}) N_{n,j}^{e_1} (\boldsymbol{y})
+	\lambda_{ij} N_{n,i}^{e_1} (\boldsymbol{x}) N_{m,j}^{e_1} (\boldsymbol{y})
 	\boldsymbol{E}_n \otimes \boldsymbol{E}_m, \\
 	\label{eq:StressBlock}
 	\widehat{\textbf{K}}_{nm}^{e_1 e_2} (\boldsymbol{x}, \boldsymbol{y}) = 
-	C_{ijkl} N_{n,k}^{e_1} (\boldsymbol{x}) N_{m,l}^{e_2} (\boldsymbol{y}) \boldsymbol{e}_i \otimes \boldsymbol{e}_j \otimes \boldsymbol{E}_n \otimes \boldsymbol{E}_m,
+	C_{ijkl} N_{n,k}^{e_1} (\boldsymbol{x}) N_{m,l}^{e_2} (\boldsymbol{y}) \boldsymbol{E}_n \otimes \boldsymbol{E}_m \otimes \boldsymbol{e}_i \otimes \boldsymbol{e}_j,
 \end{gather}
-где $i,j,k,l = \overline{1,2}$; $n,m = \overline{1,L}$; $\boldsymbol{E}_n$ --- единичный вектор размерности $M$; $M$ --- количество узлов в сетке $S_h$. Далее для общности записи будем использовать блок $\textbf{K}_{nm}^{e_1 e_2}$, который будет играть роль блока матрицы теплопроводности или жёсткости в зависимости от контекста.
+где $i,j,k,l = \overline{1,2}$; $n,m = \overline{1,L}$. Далее для общности записи будем использовать блок $\textbf{K}_{nm}^{e_1 e_2}$, который будет играть роль блока матрицы теплопроводности или жёсткости в зависимости от контекста.
 
 Рассмотрим матричные слагаемые с множителем $p_1$, которые достаточно легко могут быть аппроксимированы классической конечно-элементной процедурой \cite{Zienkiewicz, Bathe}. После её применения ассемблированную матрицу запишем следующим образом
 \begin{gather}
@@ -223,16 +262,18 @@ $Q^e$ --- набор номеров квадратурных узлов на э�
 	\int\limits_{S'(\boldsymbol{x}') \cap S}
 	\varphi( \boldsymbol{x}, \boldsymbol{x}' )
 	\lambda_{ij}
-	N_{m', j}^{e'} dS'(\boldsymbol{x}), \\
+	N_{m', j}^{e'} dS'(\boldsymbol{x})
+	\boldsymbol{E}_n \otimes \boldsymbol{E}_{m'}, \\
 	\widehat{\textbf{K}}^{NL}_E =
 	\sum\limits_{e \in S_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
 	w_q N_{n,i}^e (\boldsymbol{x}_q) J_q^e
 	\int\limits_{S'(\boldsymbol{x}') \cap S}
-	\varphi(\boldsymbol{x}, \boldsymbol{x}') C_{ijkl} \varepsilon_{kl} dS'(\boldsymbol{x}).
+	\varphi(\boldsymbol{x}, \boldsymbol{x}') C_{ijkl} \varepsilon_{kl} dS'(\boldsymbol{x})
+	\boldsymbol{E}_n \otimes \boldsymbol{E}_{m'}.
 \end{gather*}
-Далее в каждом квадратурном узле $\boldsymbol{x}_q$ необходимо аппроксимировать зону нелокального влияния $S_h^q$ \cite{Pisano1}, которую можно представить в виде множества элементов, квадратурные узлы которых хотя бы частично попали под область $S'(\boldsymbol{x}_q)$, как это представлено на Рис.~\ref{fig:ApproxSQ}, где крестом указан узел относительно которого проводится аппроксимация, точками отмечены квадратурные узлы элементов, а серым цветом выделены те элементы, которые учтены в аппроксимации области, которая очерчена окружностью. Такой способ аппроксимации будем называть квадратурной аппроксимацией области нелокальности. Ассемблирование матрицы соответствующей нелокальному слагаемому можно записать следующим образом
+Далее в каждом квадратурном узле $\boldsymbol{x}_q$ необходимо аппроксимировать зону нелокального влияния $S_h^q$ \cite{Pisano1}, которую можно представить в виде множества элементов, квадратурные узлы которых хотя бы частично попали под область $S'(\boldsymbol{x}_q)$. На Рис.~\ref{fig:ApproxSQ} крестом указан узел относительно которого проводится аппроксимация, область нелокальности ограничена окружностью, точками отмечены квадратурные узлы элементов, а серым цветом выделены элементы, которые были учтены в аппроксимации области нелокальности. Такой способ аппроксимации будем называть квадратурной аппроксимацией области нелокальности. Ассемблирование матрицы соответствующей нелокальному слагаемому можно записать следующим образом
 \begin{gather}
 	\label{eq:ApproxNonloc}
 	\widehat{\textbf{K}}^{NL}_{\mathcal{F}} =
@@ -261,28 +302,28 @@ $Q^e$ --- набор номеров квадратурных узлов на э�
 	\sum\limits_{e \in \Gamma_h}
 	\sum\limits_{n,m \in I^{e}}
 	\sum\limits_{q \in Q^e}
-	w_q \alpha N_n^e (\boldsymbol{x}_q) N_m^e (\boldsymbol{x}_q) J_q^e,
+	w_q \alpha N_n^e (\boldsymbol{x}_q) N_m^e (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 	\\
 	\label{eq:HeatTransferVector}
 	\textbf{T}^{\alpha} =
 	\sum\limits_{e \in \Gamma_h}
 	\sum\limits_{n \in I^{e}}
 	\sum\limits_{q \in Q^e}
-	w_q \alpha N_n^e (\boldsymbol{x}_q) T_{\alpha} (\boldsymbol{x}_q) J_q^e
+	w_q \alpha N_n^e (\boldsymbol{x}_q) T_{\alpha} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 	\\
 	\label{eq:InnerFlux}
 	\textbf{Q} =
 	\sum\limits_{e \in S_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q q_V (\boldsymbol{x}_q) J_q^e,
+	w_q q_V (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 	\\
 	\label{eq:OuterFlux}
 	\textbf{F} =
 	\sum\limits_{e \in \Gamma_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q f (\boldsymbol{x}_q) J_q^e.
+	w_q f (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n.
 \end{gather}
 Аналогично запишем ассемблирование остальных слагаемых и для уравнения (\ref{eq:StressSLAE})
 \begin{gather}
@@ -291,21 +332,21 @@ $Q^e$ --- набор номеров квадратурных узлов на э�
 	\sum\limits_{e \in S_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q \boldsymbol{b} (\boldsymbol{x}_q) J_q^e,
+	w_q \boldsymbol{b} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 	\\
 	\label{eq:OuterPressure}
 	\widehat{\textbf{P}} = 
 	\sum\limits_{e \in \Gamma_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q \boldsymbol{p} (\boldsymbol{x}_q) J_q^e,
+	w_q \boldsymbol{p} (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 	\\
 	\label{eq:LocalThermalExpansion}
 	\widehat{\textbf{E}}^L = 
 	\sum\limits_{e \in S_h}
 	\sum\limits_{n \in I^e}
 	\sum\limits_{q \in Q^e}
-	w_q \nabla N_n^e (\boldsymbol{x}_q) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_q) J_q^e,
+	w_q \nabla N_n^e (\boldsymbol{x}_q) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_q) J_q^e \boldsymbol{E}_n,
 \end{gather}
 \begin{multline}
 	\label{eq:NonLocalThermalExpansion}
@@ -317,7 +358,7 @@ $Q^e$ --- набор номеров квадратурных узлов на э�
 	\times \\ \times
 	\sum\limits_{e' \in S_h^q}
 	\sum\limits_{q' \in Q^{e'}}
-	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'}.
+	w_{q'} \varphi (\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \widehat{\mathbf{C}} \cdot \cdot \widehat{\boldsymbol{\alpha}} \Delta T (\boldsymbol{x}_{q'}) J_{q'}^{e'} \boldsymbol{E}_n.
 \end{multline}
 Отметим, что при ассемблировании $\widehat{\textbf{E}}^{NL}$ была использован метод квадратурной аппроксимации области нелокальности $S'(\boldsymbol{x})$, который ранее применялся к матрицам нелокальной телопроводности и жёсткости (\ref{eq:ApproxNonloc}).
 
