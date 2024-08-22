@@ -401,7 +401,7 @@ sorting=none,% настройка сортировки списка литера
 
 %\ifnumequal{\value{draft}}{0}{% Чистовик
 %\renewcommand*{\mkgostheading}[1]{\usebibmacro{string+doi}{#1}} % ссылка на doi с авторов. стоящих впереди записи
-%\renewcommand*{\mkgostheading}[1]{#1} % только лишь убираем курсив с авторов
+\renewcommand*{\mkgostheading}[1]{#1} % только лишь убираем курсив с авторов
 %}{}
 %\DeclareFieldFormat{title}{\usebibmacro{string+doi}{#1}} % ссылка на doi с названия работы
 %\DeclareFieldFormat{journaltitle}{\usebibmacro{string+doi}{#1}} % ссылка на doi с названия журнала
