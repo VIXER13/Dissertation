@@ -7,7 +7,7 @@
     \ifnumequal{\value{showperssign}}{0}{%
         \rule[0pt]{0pt}{1.5cm}
     }{
-        \includegraphics[height=1.5cm]{personal-signature.png}
+        %\includegraphics[height=1.5cm]{personal-signature.png}
     }\\
 \end{tabularx}
 
@@ -39,7 +39,13 @@
 \newpage
 % оборотная сторона обложки
 \thispagestyle{empty}
-\noindent Работа выполнена в {\thesisInOrganization}.
+\begin{center}
+Работа выполнена в федеральном государственном бюджетном\\
+образовательном учреждении высшего образования\\
+<<Москвоский государственный технический университет имени Н.Э.~Баумана
+(национальный исследовательский университет)>>\\
+(МГТУ им. Н.Э.~Баумана)
+\end{center}
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
@@ -102,7 +108,7 @@
 \noindent Защита состоится \defenseDate~на~заседании диссертационного совета \defenseCouncilNumber~при \defenseCouncilTitle~по адресу: \defenseCouncilAddress.
 
 \vspace{0.008\paperheight plus1fill}
-\noindent С диссертацией можно ознакомиться в библиотеке \synopsisLibrary.
+\noindent С диссертацией можно ознакомиться в библиотеке МГТУ им. Н.Э.~Баумана и на сайте \synopsisLibrary.
 
 \vspace{0.008\paperheight plus1fill}
 \noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: \defenseCouncilAddress, ученому секретарю диссертационного совета~\defenseCouncilNumber.
@@ -110,7 +116,7 @@
 \vspace{0.008\paperheight plus1fill}
 \noindent{Автореферат разослан \synopsisDate.}
 
-\noindent Телефон для справок: \defenseCouncilPhone.
+%\noindent Телефон для справок: \defenseCouncilPhone.
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
@@ -125,7 +131,7 @@ r
     \defenseSecretaryRegalia
     &
     \ifnumequal{\value{showsecrsign}}{0}{}{%
-        \includegraphics[width=2cm]{secretary-signature.png}%
+        %\includegraphics[width=2cm]{secretary-signature.png}%
     }%
     &
     \defenseSecretaryFio
