@@ -20,6 +20,14 @@
 \input{Synopsis/synstyles}    % Стили для автореферата
 \input{Synopsis/userstyles}   % Стили для специфических пользовательских задач
 
+\usepackage{fancyhdr}
+\pagestyle{fancy} % смена стиля оформления страниц
+%\fancyhf{} % очистка текущих значений
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[LE,RO]{\thepage} % установка верхнего колонтитула
+\renewcommand{\headrulewidth}{0pt} % убрать разделительную линию
+
 %%% Библиография. Выбор движка для реализации %%%
 \ifnumequal{\value{bibliosel}}{0}{%
     \input{biblio/predefined} % Встроенная реализация с загрузкой файла через движок bibtex8

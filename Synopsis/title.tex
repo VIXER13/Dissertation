@@ -3,7 +3,7 @@
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lXr@{}}%
     & & \large{На правах рукописи}\\
-    \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
+    \IfFileExists{images/logo___.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
     \ifnumequal{\value{showperssign}}{0}{%
         \rule[0pt]{0pt}{1.5cm}
     }{
@@ -22,7 +22,7 @@
 \thesisTitle}
 
 \vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\large Специальность \thesisSpecialtyNumber\ "---\par <<\thesisSpecialtyTitle>>}
+{\large \thesisSpecialtyNumber\ "--- \thesisSpecialtyTitle}
 
 \ifdefined\thesisSpecialtyTwoNumber
 {\large Специальность \thesisSpecialtyTwoNumber\ "---\par <<\thesisSpecialtyTwoTitle>>}
@@ -42,7 +42,7 @@
 \begin{center}
 Работа выполнена в федеральном государственном бюджетном\\
 образовательном учреждении высшего образования\\
-<<Москвоский государственный технический университет имени Н.Э.~Баумана
+<<Московский государственный технический университет имени Н.Э.~Баумана
 (национальный исследовательский университет)>>\\
 (МГТУ им. Н.Э.~Баумана)
 \end{center}
@@ -111,7 +111,7 @@
 \noindent С диссертацией можно ознакомиться в библиотеке МГТУ им. Н.Э.~Баумана и на сайте \synopsisLibrary.
 
 \vspace{0.008\paperheight plus1fill}
-\noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: \defenseCouncilAddress, ученому секретарю диссертационного совета~\defenseCouncilNumber.
+%\noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: \defenseCouncilAddress, ученому секретарю диссертационного совета~\defenseCouncilNumber.
 
 \vspace{0.008\paperheight plus1fill}
 \noindent{Автореферат разослан \synopsisDate.}
@@ -120,19 +120,25 @@
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
-\begin{tabularx}{\textwidth}{@{}%
->{\raggedright\arraybackslash}b{18em}@{}
->{\centering\arraybackslash}X
-r
-@{}}
-    Ученый секретарь\par
-    диссертационного совета\par
-    \defenseCouncilNumber,\par
-    \defenseSecretaryRegalia
-    &
-    \ifnumequal{\value{showsecrsign}}{0}{}{%
-        %\includegraphics[width=2cm]{secretary-signature.png}%
-    }%
-    &
-    \defenseSecretaryFio
+\begin{tabularx}{\textwidth}{p{7.5cm}p{1.8cm}r}
+	\hspace{-0.2cm}Ученый секретарь & \hfill & Аттетков \\
+	\hspace{-0.2cm}диссертационного совета, & \hfill & Александр \\
+	\hspace{-0.2cm}\defenseSecretaryRegalia & \hfill & Владимирович
 \end{tabularx}
+
+%\begin{tabularx}{\textwidth}{@{}%
+%>{\raggedright\arraybackslash}b{18em}@{}
+%>{\centering\arraybackslash}X
+%r
+%@{}}
+%    Ученый секретарь\par
+%    диссертационного совета,\par
+%    %\defenseCouncilNumber,\par
+%    \defenseSecretaryRegalia
+%    &
+%    \ifnumequal{\value{showsecrsign}}{0}{}{%
+%        %\includegraphics[width=2cm]{secretary-signature.png}%
+%    }%
+%    &
+%    %\defenseSecretaryFio
+%\end{tabularx}
