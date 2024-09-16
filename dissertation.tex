@@ -81,14 +81,14 @@
 \setcounter{totalchapter}{\value{chapter}} % Подсчёт количества глав
 
 %%% Настройки для приложений
-%\appendix
+\appendix
 % Оформление заголовков приложений ближе к ГОСТ:
-%\setlength{\midchapskip}{20pt}
-%\renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
-%\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
+\setlength{\midchapskip}{20pt}
+\renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
+\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
 
-%\include{Dissertation/appendix}        % Приложения
+\include{Dissertation/appendix}        % Приложения
 
-%\setcounter{totalappendix}{\value{chapter}} % Подсчёт количества приложений
+\setcounter{totalappendix}{\value{chapter}} % Подсчёт количества приложений
 
 \end{document}
