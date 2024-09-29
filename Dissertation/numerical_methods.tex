@@ -172,17 +172,18 @@ $S^{e}$ --- область \mbox{элемента $e$.}
 	\int\limits_S
 	\lambda_{ij} N_{n, i}^{e} N_{m, j}^{e}
 	\boldsymbol{E}_n \otimes \boldsymbol{E}_m dS,
-\end{gather*}
-\begin{gather*}
+	\\
 	\widehat{\textbf{K}}^{NL}_T =
 	\int\limits_S
 	N_{n, i}^{e}
 	\int\limits_{S'(\boldsymbol{x}') \cap S}
 	\varphi( \boldsymbol{x}, \boldsymbol{x}' )
 	\lambda_{ij}
-	N_{m', j}^{e'} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m'} dS'(\boldsymbol{x}) dS, \\
-	\widehat{\textbf{K}}^{\alpha}_T = \int\limits_{\Gamma_3} \alpha N_n^{e} N_m^{e} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m} d\Gamma, 
+	N_{m', j}^{e'} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m'} dS'(\boldsymbol{x}) dS,
 	\\
+	\widehat{\textbf{K}}^{\alpha}_T = \int\limits_{\Gamma_3} \alpha N_n^{e} N_m^{e} \boldsymbol{E}_n \otimes \boldsymbol{E}_{m} d\Gamma, 
+\end{gather*}
+\begin{gather*}
 	\textbf{Q} = \int\limits_S N_n^{e} q_V \boldsymbol{E}_n dS, \\
 	\textbf{F} = \int\limits_{\Gamma_2} N_n^{e} f \boldsymbol{E}_n d\Gamma,
 	\\
@@ -400,3 +401,13 @@ $Q^e$ --- набор номеров квадратурных узлов на э�
 	\widehat{\boldsymbol{\sigma}}_n = \sum\limits_{e \in E^n} \dfrac{\widehat{\boldsymbol{\sigma}}_{q^e} |S^e|}{|S^n|},
 \end{gather*}
 где $\boldsymbol{q}_n$ и $\widehat{\boldsymbol{\sigma}}_n$ --- значения плотности теплового потока и напряжений в регулярных узлах сетки соответственно.
+
+\section{Основные результаты и выводы по главе 2}\label{sec:NumericalMethods/Conclusion}
+
+\begin{enumerate}
+	\item На основе метода конечных элементов, разработана численная схема аппроксимации уравнений теплопроводности и равновесия в нелокальных постановках.
+	
+	\item Предложен способ квадратурной аппроксимации области нелокального влияния, суть которого заключена в аппроксимации области нелокального влияния относителько каждого квадратурного узла.
+	
+	\item Представлен алгоритм аппроксимации производных величин, таких как вектор плотности теплового потока и тензор напряжений, с учётом пространственной нелокальности.
+\end{enumerate}

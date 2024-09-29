@@ -60,6 +60,7 @@
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
 \include{Dissertation/title}           % Титульный лист
 \include{Dissertation/contents}        % Оглавление
+\include{Dissertation/dictionary}      % Словарь терминов
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
 \ifnumequal{\value{contnumtab}}{1}{}{\counterwithout{table}{chapter}}
 \include{Dissertation/introduction}    % Введение
@@ -74,7 +75,6 @@
 \include{Dissertation/NonLocFEM_analysis}
 \include{Dissertation/conclusion}      % Заключение
 \include{Dissertation/acronyms}        % Список сокращений и условных обозначений
-\include{Dissertation/dictionary}      % Словарь терминов
 \include{Dissertation/references}      % Список литературы
 %\include{Dissertation/lists}           % Списки таблиц и изображений (иллюстративный материал)
 
@@ -83,9 +83,10 @@
 %%% Настройки для приложений
 \appendix
 % Оформление заголовков приложений ближе к ГОСТ:
-\setlength{\midchapskip}{20pt}
-\renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
-\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами нумеровались
+%\setlength{\midchapskip}{20pt}
+%\renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
+%\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами
+\renewcommand{\thechapter}{\arabic{chapter}} % Чтобы приложения цифрами нумеровались
 
 \include{Dissertation/appendix}        % Приложения
 

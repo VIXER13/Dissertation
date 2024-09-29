@@ -36,10 +36,6 @@
         "Horizontal": [
             null,
             { "displacement": 0 }
-        ],
-        "Vertical": [
-            { "displacement": 0 },
-            null
         ]
     },
     "materials": {
