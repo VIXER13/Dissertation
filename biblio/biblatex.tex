@@ -38,6 +38,7 @@ sorting=none,% настройка сортировки списка литера
 \else
 % Исправление случая неподдержки знака номера в pdflatex
     \DefineBibliographyStrings{russian}{number={\textnumero}}
+    \DefineBibliographyStrings{english}{number={No.}}
 
 % Исправление случая отсутствия прописных букв в некоторых случаях
 % https://github.com/plk/biblatex/issues/960#issuecomment-596658282
@@ -367,36 +368,36 @@ sorting=none,% настройка сортировки списка литера
 %\makeatother
 
 %%% Правка записей типа thesis, чтобы дважды не писался автор
-%\ifnumequal{\value{draft}}{0}{% Чистовик
-%\DeclareBibliographyDriver{thesis}{%
-%  \usebibmacro{bibindex}%
-%  \usebibmacro{begentry}%
-%  \usebibmacro{heading}%
-%  \newunit
-%  \usebibmacro{author}%
-%  \setunit*{\labelnamepunct}%
-%  \usebibmacro{thesistitle}%
-%  \setunit{\respdelim}%
-%  %\printnames[last-first:full]{author}%Вот эту строчку нужно убрать, чтобы автор диссертации не дублировался
-%  \newunit\newblock
-%  \printlist[semicolondelim]{specdata}%
-%  \newunit
-%  \usebibmacro{institution+location+date}%
-%  \newunit\newblock
-%  \usebibmacro{chapter+pages}%
-%  \newunit
-%  \printfield{pagetotal}%
-%  \newunit\newblock
-%  \usebibmacro{doi+eprint+url+note}%
-%  \newunit\newblock
-%  \usebibmacro{addendum+pubstate}%
-%  \setunit{\bibpagerefpunct}\newblock
-%  \usebibmacro{pageref}%
-%  \newunit\newblock
-%  \usebibmacro{related:init}%
-%  \usebibmacro{related}%
-%  \usebibmacro{finentry}}
-%}{}
+\ifnumequal{\value{draft}}{0}{% Чистовик
+\DeclareBibliographyDriver{thesis}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{heading}%
+  \newunit
+  \usebibmacro{author}%
+  \setunit*{\labelnamepunct}%
+  \usebibmacro{thesistitle}%
+  \setunit{\respdelim}%
+  %\printnames[last-first:full]{author}%Вот эту строчку нужно убрать, чтобы автор диссертации не дублировался
+  \newunit\newblock
+  \printlist[semicolondelim]{specdata}%
+  \newunit
+  \usebibmacro{institution+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url+note}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \usebibmacro{related:init}%
+  \usebibmacro{related}%
+  \usebibmacro{finentry}}
+}{}
 
 %\newbibmacro{string+doi}[1]{% новая макрокоманда на простановку ссылки на doi
 %    \iffieldundef{doi}{#1}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
