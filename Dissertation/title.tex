@@ -61,38 +61,52 @@
 \end{center}
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\begin{flushright}
-\ifdefined\supervisorTwoFio
-Научные руководители:
 
-\supervisorRegalia
+\begin{minipage}[b]{0.43\linewidth}
+    \begin{flushleft}
+      \includegraphics[height=3.5cm]{my_signature.png}
+    \end{flushleft}
+  \end{minipage}%
+  \begin{minipage}[b]{0.5\linewidth}
+    \begin{flushright}
+      Научный руководитель:\\
+      \supervisorRegaliaShort \\
+      \supervisorFio
+    \end{flushright}
+  \end{minipage}
 
-\ifdefined\supervisorDead
-\framebox{\supervisorFio}
-\else
-\supervisorFio
-\fi
+%\begin{flushright}
+%\ifdefined\supervisorTwoFio
+%Научные руководители:
 
-\supervisorTwoRegalia
+%\supervisorRegalia
 
-\ifdefined\supervisorTwoDead
-\framebox{\supervisorTwoFio}
-\else
-\supervisorTwoFio
-\fi
-\else
-Научный руководитель:
+%\ifdefined\supervisorDead
+%\framebox{\supervisorFio}
+%\else
+%\supervisorFio
+%\fi
 
-\supervisorRegaliaShort
+%\supervisorTwoRegalia
 
-\ifdefined\supervisorDead
-\framebox{\supervisorFio}
-\else
-\supervisorFio
-\fi
-\fi
+%\ifdefined\supervisorTwoDead
+%\framebox{\supervisorTwoFio}
+%\else
+%\supervisorTwoFio
+%\fi
+%\else
+%Научный руководитель:
 
-\end{flushright}
+%\supervisorRegaliaShort
+
+%\ifdefined\supervisorDead
+%\framebox{\supervisorFio}
+%\else
+%\supervisorFio
+%\fi
+%\fi
+
+%\end{flushright}
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 {\centering\thesisCity\ "--- \thesisYear\par}
