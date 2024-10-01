@@ -3,11 +3,11 @@
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lXr@{}}%
     & & \large{На правах рукописи}\\
-    \IfFileExists{images/logo___.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
+    \IfFileExists{images/logo_.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
     \ifnumequal{\value{showperssign}}{0}{%
         \rule[0pt]{0pt}{1.5cm}
     }{
-        %\includegraphics[height=1.5cm]{personal-signature.png}
+%        \includegraphics[height=1.5cm]{personal-signature.png}
     }\\
 \end{tabularx}
 
@@ -33,7 +33,12 @@
 \large{диссертации на соискание учёной степени\par \thesisDegree}
 \end{center}
 
+
+
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+
+\includegraphics[height=3cm]{my_signature.png}
+
 {\centering\thesisCity~--- \thesisYear\par}
 
 \newpage
@@ -78,14 +83,10 @@
     Официальные оппоненты:  &
     \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
         \textbf{\opponentOneFio,}\par
-        \opponentOneRegalia,\par
-        \opponentOneJobPlace,\par
-        \opponentOneJobPost\par
+        \opponentOneRegalia, \opponentOneJobPost, \opponentOneJobPlace.
         \vspace{0.01\paperheight}
         \textbf{\opponentTwoFio,}\par
-        \opponentTwoRegalia,\par
-        \opponentTwoJobPlace,\par
-        \opponentTwoJobPost
+        \opponentTwoRegalia, \opponentTwoJobPost, \opponentTwoJobPlace,
     \ifdefined\opponentThreeFio
         \par
         \vspace{0.01\paperheight}
@@ -118,27 +119,29 @@
 
 %\noindent Телефон для справок: \defenseCouncilPhone.
 
+%\includegraphics[width=2cm]{secretary-signature.png}
+
 \vspace{0.008\paperheight plus1fill}
 \noindent%
 \begin{tabularx}{\textwidth}{p{7.5cm}p{1.8cm}r}
-	\hspace{-0.2cm}Ученый секретарь & \hfill & Аттетков \\
-	\hspace{-0.2cm}диссертационного совета, & \hfill & Александр \\
-	\hspace{-0.2cm}\defenseSecretaryRegalia & \hfill & Владимирович
+	\hspace{-0.2cm}Ученый секретарь & \multirow{3}{*}{\includegraphics[width=2cm]{secretary-signature.png}} & Аттетков \\
+	\hspace{-0.2cm}диссертационного совета, &  & Александр \\
+	\hspace{-0.2cm}\defenseSecretaryRegalia &  & Владимирович
 \end{tabularx}
 
-%\begin{tabularx}{\textwidth}{@{}%
-%>{\raggedright\arraybackslash}b{18em}@{}
-%>{\centering\arraybackslash}X
-%r
-%@{}}
+% \begin{tabularx}{\textwidth}{@{}%
+% >{\raggedright\arraybackslash}b{18em}@{}
+% >{\centering\arraybackslash}X
+% r
+% @{}}
 %    Ученый секретарь\par
 %    диссертационного совета,\par
-%    %\defenseCouncilNumber,\par
+%    \defenseCouncilNumber,\par
 %    \defenseSecretaryRegalia
 %    &
 %    \ifnumequal{\value{showsecrsign}}{0}{}{%
-%        %\includegraphics[width=2cm]{secretary-signature.png}%
+%        \includegraphics[width=2cm]{secretary-signature.png}%
 %    }%
 %    &
 %    %\defenseSecretaryFio
-%\end{tabularx}
+% \end{tabularx}
