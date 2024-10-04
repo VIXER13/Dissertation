@@ -72,21 +72,17 @@
                               \fi
                               \vspace{0.013\paperheight}\\
     \else
-    Научный руководитель:   & \supervisorRegalia\par
-                              \ifdefined\supervisorDead
-                              \framebox{\textbf{\supervisorFio}}
-                              \else
-                              \textbf{\supervisorFio}
-                              \fi
+    Научный руководитель:   & %\textbf{\supervisorFio,}\par \supervisorRegalia, \supervisorJobPlace.
+    							 \supervisorRegalia,\par \textbf{\supervisorFio}.
                               \vspace{0.013\paperheight}\\
     \fi
     Официальные оппоненты:  &
     \ifnumequal{\value{showopplead}}{0}{\vspace{13\onelineskip plus1fill}}{%
-        \textbf{\opponentOneFio,}\par
+        \textbf{\opponentOneFio},\par
         \opponentOneRegalia, \opponentOneJobPost, \opponentOneJobPlace.
-        \vspace{0.01\paperheight}
-        \textbf{\opponentTwoFio,}\par
-        \opponentTwoRegalia, \opponentTwoJobPost, \opponentTwoJobPlace,
+        \vspace{0.01\paperheight}\par
+        \textbf{\opponentTwoFio},\par
+        \opponentTwoRegalia, \opponentTwoJobPost, \opponentTwoJobPlace.
     \ifdefined\opponentThreeFio
         \par
         \vspace{0.01\paperheight}
