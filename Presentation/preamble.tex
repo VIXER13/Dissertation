@@ -11,7 +11,7 @@
 		\item Введение
 		\item Основные соотношения
 		\item Численный алгоритм решения
-		\item Программный комплекс
+		\item Программный комплекс NonLocFEM
 		\item Анализ решений
 		\item Заключение
 	\end{enumerate}
@@ -19,6 +19,11 @@
 \end{frame}
 
 \section{Введение}
+\begin{frame}
+	\centering
+	\Huge
+	Введение
+\end{frame}
 
 \begin{frame}{Введение}
 \begin{center}
@@ -33,12 +38,29 @@
 \end{frame}
 
 \begin{frame}
-
 	\begin{center}
 	\includegraphics[width=0.85\textwidth]{pics/ModelsHierarchy.pdf}
 	
 	Иерархия моделей моделей механики твёрдого тела
 	\end{center}
+\end{frame}
+
+\begin{frame}{Модели обобщённой механики сплошной среды}
+	Модели сплошной среды, учитывающие структуру материала:
+	\begin{itemize}
+		\item вращение:
+		\begin{itemize}
+			\justifying
+			\item микрополярные (Eugène и François Cosserat, V.~G{\"u}nther, Э.Л.~Аэро, Е.В.~Кувшинский и др.);
+			\item микроморфные (A.C.~Eringen и др.);
+		\end{itemize}
+		\item дальнодействующие эффекты:
+		\begin{itemize}
+			\justifying
+			\item градиентные (R.A.~Toupin, R.D.~Mindlin, E.C.~Aifantis, С.А.~Лурье и др.);
+			\item нелокальные (E.~Kr{\"o}ner, A.C.~Eringen, D.~Rogula, D.G.B.~Edelen, S.B.~Altan, Г.Н.~Кувыркин, И.Ю.~Савельева и др.);
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}

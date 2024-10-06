@@ -158,7 +158,7 @@
 \begin{frame}
 	\centering
 	\Huge
-	Программный комплекс
+	Программный комплекс NonLocFEM
 \end{frame}
 
 \subsection{Эффективность распараллеливания}
@@ -182,8 +182,8 @@
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|}
 	\hline
-	Сетка & Радиус & \multicolumn{2}{c|}{Объём}   & \multicolumn{2}{c|}{Время, с} \\
-	      & поиска & \multicolumn{2}{c|}{матрицы} & \multicolumn{2}{c|}{18 потоков} \\
+	Сетка & Радиус & \multicolumn{2}{c|}{Используемый объём}   & \multicolumn{2}{c|}{Время, с} \\
+	      & поиска & \multicolumn{2}{c|}{оперативной памяти} & \multicolumn{2}{c|}{18 потоков} \\
 	\hhline{~~----}
 	      &        & $\widehat{\textbf{K}}_T$ & $\widehat{\textbf{K}}_E$ & $\widehat{\textbf{K}}_T$ & $\widehat{\textbf{K}}_E$ \\
 	\hline
@@ -215,6 +215,7 @@
 
 \subsection{Ускорение решения СЛАУ}
 \begin{frame}{Ускорение решения СЛАУ}
+	\justifying
 	Существует несколько способов, которые могут повысить эффективность итерационных решателей СЛАУ:
 	
 	\begin{minipage}{0.49\textwidth}
