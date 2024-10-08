@@ -3,7 +3,7 @@
 \begin{frame}
 	\centering
 	\Huge
-	Основные соотношения
+	Математические модели
 \end{frame}
 
 \subsection{Нелокальный интегральный оператор}
@@ -44,7 +44,7 @@
 	\begin{gather*}
 		\nabla \cdot \boldsymbol{q} = q_V,
 		\quad
-		\nabla \cdot \widehat{\boldsymbol{\sigma}} = \boldsymbol{b},
+		-\nabla \cdot \widehat{\boldsymbol{\sigma}} = \boldsymbol{b},
 	\end{gather*}
 	где вектор плотности теплового потока и тензор напряжений
 	\begin{gather*}
@@ -103,12 +103,19 @@
 	Ассемблирование классических матриц
 	\begin{gather*}
 		\widehat{\textbf{K}}^L_{\mathcal{F}} =
+		\color{blue}
 		\sum\limits_{e \in S_h}
 		\sum\limits_{n,m \in I^e}
+		\color{red}
 		\sum\limits_{q \in Q^e}
+		\color{black}
 		w_q \textbf{K}^{ee}_{nm} (\boldsymbol{x}_q, \boldsymbol{x}_q) J_q^e,
 	\end{gather*}
 	$\textbf{K}^{ee}_{nm}$ --- ядро интегрирование, зависящее от исследуемого \mbox{уравнения.}
+	
+	\color{blue} Синий \color{black} --- алгоритм формирования портрета матрицы.
+	
+	\color{red} Красный \color{black} --- интегрирование.
 \end{frame}
 
 \subsection{Аппроксимация интегрального слагаемого}
@@ -117,26 +124,37 @@
 \begin{gather*}
 	\footnotesize
 	\widehat{\textbf{K}}^{NL}_T =
+	\color{blue}
 	\sum\limits_{e \in S_h}
 	\sum\limits_{n \in I^{e}}
+	\color{red}
 	\sum\limits_{q \in Q^{e}}
+	\color{black}
 	w_q N_{n,i}^e(\boldsymbol{x}_q) J_q^{e} 
+	\color{blue}
 	\sum\limits_{e' \in S_h^{q}}
 	\sum\limits_{m' \in I^{e'}}
+	\color{red}
 	\sum\limits_{q' \in Q^{e'}}
+	\color{black}
 	w_{q'} \varphi(\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \lambda_{ij} N_{m',j}^{e'} (\boldsymbol{x}_{q'}) J_{q'}^{e'}.
 \end{gather*}
 Элементная аппроксимация:
 \begin{gather*}
 	\footnotesize
 	\widehat{\textbf{K}}^{NL}_T =
+	\color{blue}
 	\sum\limits_{n \in S_h}
 	\sum\limits_{e \in E^n}
 	\sum\limits_{e' \in S_h^{e}}
 	\sum\limits_{m' \in I^{e'}}
+	\color{red}
 	\sum\limits_{q \in Q^{e}} 
+	\color{black}
 	w_q N_{n,i}^e(\boldsymbol{x}_q) J_q^{e}
+	\color{red}
 	\sum\limits_{q' \in Q^{e'}}
+	\color{black}
 	w_{q'} \varphi(\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \lambda_{ij} N_{m',j}^{e'} J_{q'}^{e'}.
 \end{gather*}
 
@@ -165,13 +183,13 @@
 \begin{frame}{Эффективность распараллеливания}
 	\begin{minipage}{0.49\textwidth}
 		\centering
-		\includegraphics[width=0.75\textwidth]{pics/OMPThermal.pdf} \\
-		(а)
+		\includegraphics[width=0.75\textwidth]{pics/OMPThermalPresentation.pdf} \\
+		Матрица теплоёмкости
 	\end{minipage}
 	\begin{minipage}{0.49\textwidth}
 		\centering
-		\includegraphics[width=0.75\textwidth]{pics/OMPMechanical.pdf} \\
-		(б)
+		\includegraphics[width=0.75\textwidth]{pics/OMPMechanicalPresentation.pdf} \\
+		Матрица жёсткости
 	\end{minipage}
 	\begin{center}
 		Эффективность распараллеливания алгоритма сборки матриц
@@ -203,7 +221,7 @@
 	\hline
 	$800 \times 80$   & 0.1  & 1.34 Мб & 5.4 Гб   & 32    & 37.8  \\
 	\hline
-	$1600 \times 160$ & 0.1  & 17 Гб   & 68 Гб    & 447   & 521   \\
+	$1600 \times 160$ & 0.1  & 17 Гб   & \textbf{68 Гб} & 447   & 521   \\
 	\hline
 	\end{tabular}
 	
@@ -259,14 +277,14 @@
     \
     i = 2, 4, 6, 8.
 \end{gather*}
-Классический базис получаем при $s = -1 / 3$.
+Классический базис получаем при \framebox{$s = -1 / 3$}.
 
 Минимальный след матрицы оценим следующим образом
 \begin{gather*}
 	\label{eq:ParamSOptimal}
 	\min\limits_s \int\limits_{-1}^{1} \int\limits_{-1}^{1} \sum\limits_{i = 0}^8 \sum\limits_{j = 0}^2 c_{j} N_{i, j}^2(\xi, \eta) d\xi d\eta =
 	\min\limits_s C (27 s^2 -12 s + 19) \
-	\rightarrow \ s = \dfrac{2}{9}.
+	\rightarrow \ \text{\framebox{$s = \dfrac{2}{9}$}}.
 \end{gather*}
 \end{frame}
 
@@ -311,15 +329,30 @@ $T_0$ --- решение классической задачи при тех ж�
 
 \subsection{Структура комплекса}
 \begin{frame}{Структура программного комплекса NonLocFEM}
-\begin{center}
-	\includegraphics[width=0.6\textwidth]{pics/NonLocFEMSchema.pdf}
+\begin{minipage}{0.49\textwidth}
+	Возможные постановки:
+	\begin{itemize}
+		\justifying
+		\footnotesize
+		\item стационарная и нестационарная теплопроводность (1D, 2D);
+		\item статические задачи несвязанной термоупругости (2D);
+		\item граничные условия I, II, III родов и излучение;
+		\item кинематические и силовые граничные условия;
+		\item задачи идеального контакта с N материалами.
+	\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\textwidth}
+	\centering
+	\includegraphics[width=\textwidth]{pics/NonLocFEMSchema.pdf}
 	
 	Структура программы NonLocFEM*
-\end{center}
+\end{minipage}
+\bigskip
+
 \justifying
 * Свидетельство о государственной регистрации программы для ЭВМ \\
     №2021661966. NonLocFEM / А. А. Соколов, И. Ю. Савельева. Зарегистрировано в Реестре программ для ЭВМ 20.07.2021.
-\normalsize
 \end{frame}
 
 \section{Анализ решений}
@@ -377,27 +410,27 @@ $T_0$ --- решение классической задачи при тех ж�
 
 \begin{frame}
 	\centering
-	\begin{minipage}{0.35\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{pics/SaintVenantX0P05.pdf} \\
+		\includegraphics[width=\textwidth]{pics/SaintVenantX0P05Presentation.pdf} \\
 		(а)
 	\end{minipage}
-	\begin{minipage}{0.35\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{pics/SaintVenantX05P05.pdf} \\
+		\includegraphics[width=\textwidth]{pics/SaintVenantX05P05Presentation.pdf} \\
 		(б)
 	\end{minipage}
 	
 	Распределения напряжения $\overline{\sigma}_{11}$ в сечениях вдоль оси нагружения
 	
-	\begin{minipage}{0.35\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{pics/HeatFluxStabilityVariationR.pdf} \\
+		\includegraphics[width=\textwidth]{pics/HeatFluxStabilityVariationRPresentation.pdf} \\
 		(а)
 	\end{minipage}
-	\begin{minipage}{0.35\textwidth}
+	\begin{minipage}{0.4\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{pics/HeatFluxStabilityVariationP1.pdf} \\
+		\includegraphics[width=\textwidth]{pics/HeatFluxStabilityVariationP1Presentation.pdf} \\
 		(б)
 	\end{minipage}
 	
@@ -442,7 +475,7 @@ $T_0$ --- решение классической задачи при тех ж�
 	\justifying
 	Область $S \subset [-1, 1] \times [-1, 1]$, сетка $S_h$, где $h \approx 0.005$.
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{pics/EllipseStress.pdf}
+		\includegraphics[width=0.9\textwidth]{pics/EllipseStressPresentation.pdf}
 		Область с эллиптическим вырезом
 	\end{center}
 \end{minipage}
@@ -476,7 +509,7 @@ $T_0$ --- решение классической задачи при тех ж�
 		\hline
 		$0.75$            & 2.578     & 2.235        & 1.919       & 1.727 \\
 		\hline
-		$1$               & 3.053     & 2.696        & 2.308       & 1.937 \\
+		$1$               & \textbf{3.053} & 2.696        & 2.308       & 1.937 \\
 		\hline
 		$1.25$            & 3.532     & 3.123        & 2.670       & 2.139 \\
 		\hline
@@ -489,9 +522,9 @@ $T_0$ --- решение классической задачи при тех ж�
 \end{minipage}
 \begin{minipage}{0.39\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{pics/KirshABEps11Local.pdf} \\
+	\includegraphics[width=\textwidth]{pics/KirshABEps11LocalPresentation.pdf} \\
 	(а) \\
-	\includegraphics[width=\textwidth]{pics/KirshABEps11r005p05.pdf} \\
+	\includegraphics[width=\textwidth]{pics/KirshABEps11r005p05Presentation.pdf} \\
 	(б)
 	Распределение деформации в локальном и нелокальном случаях
 \end{minipage}
@@ -518,7 +551,7 @@ $T_0$ --- решение классической задачи при тех ж�
 \end{minipage}
 \begin{minipage}{0.49\textwidth}
 	\centering
-	\includegraphics[width=0.8\textwidth]{pics/EllipseThermal.pdf}
+	\includegraphics[width=0.8\textwidth]{pics/EllipseThermalPresentation.pdf}
 	Область с эллиптическим вырезом и тепловыми граничными условиями
 \end{minipage}
 \end{frame}
@@ -528,11 +561,11 @@ $T_0$ --- решение классической задачи при тех ж�
 \centering
 \begin{minipage}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma11Local.pdf} \\
+	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma11LocalPresentation.pdf} \\
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma22Local.pdf} \\
+	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma22LocalPresentation.pdf} \\
 \end{minipage}
 
 Распределение напряжений $\overline{\sigma}_{11}$ и $\overline{\sigma}_{22}$ при вариации соотношения $\rho$
@@ -542,11 +575,11 @@ $T_0$ --- решение классической задачи при тех ж�
 
 \begin{minipage}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma11VariationP1.pdf} \\
+	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma11VariationP1Presentation.pdf} \\
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
 	\centering
-	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma22VariationP1.pdf} \\
+	\includegraphics[width=\textwidth]{pics/ThermalKirshSigma22VariationP1Presentation.pdf} \\
 \end{minipage}
 
 Распределение напряжений $\overline{\sigma}_{11}$ и $\overline{\sigma}_{22}$ при вариации параметра $p_1$
