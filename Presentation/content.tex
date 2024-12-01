@@ -6,20 +6,83 @@
 	Математические модели
 \end{frame}
 
+\subsection{Основные соотношения}
+\begin{frame}{Основные соотношения}
+	Уравнения стационарной теплопроводности и равновесия в 2D
+	\begin{gather*}
+		\nabla \cdot \boldsymbol{q} = q_V,
+		\quad
+		-\nabla \cdot \widehat{\boldsymbol{\sigma}} = \boldsymbol{b}
+	\end{gather*}
+	где вектор плотности теплового потока $\boldsymbol{q}$ и тензор напряжений $\widehat{\boldsymbol{\sigma}}$ определены
+	\begin{gather*}
+		\boldsymbol{q}(\boldsymbol{x}) = 
+			-p_1 \widehat{\boldsymbol{\lambda}} \cdot \nabla T
+			-p_2 \int\limits_{S'(\boldsymbol{x}) \cap S} 
+			    \varphi(|\boldsymbol{x} - \boldsymbol{x}'|) \widehat{\boldsymbol{\lambda}} \cdot \nabla T
+			 dS'(\boldsymbol{x}), \\
+		\widehat{\boldsymbol{\sigma}} =
+		    p_1 \widehat{\text{\textbf{C}}} \cdot \cdot \left( \widehat{\boldsymbol{\varepsilon}} - \widehat{\boldsymbol{\alpha}}^T \Delta T \right) +
+            p_2 \int\limits_{S'(\boldsymbol{x}) \cap S}
+                \varphi(|\boldsymbol{x} - \boldsymbol{x}|) \widehat{\text{\textbf{C}}} \cdot \cdot \left( \widehat{\boldsymbol{\varepsilon}} - \widehat{\boldsymbol{\alpha}}^T \Delta T \right)
+		    dS'(\boldsymbol{x}),
+	\end{gather*}
+	$p_1 > 0$ и $p_2 \geqslant 0$ --- весовые параметры модели, $p_1 + p_2 = 1$; \\
+	$\varphi(|\boldsymbol{x} - \boldsymbol{x}'|)$~---~нормированная, положительная функция нелокального влияния, определённая на области $S'(\boldsymbol{x})$; \\
+	$S'(\boldsymbol{x})$ --- область нелокального влияния с центром в точке $\boldsymbol{x} \in S$;\\
+	$S$ --- область занимаемая рассматриваемым телом.
+\end{frame}
+
+\begin{frame}{Принятые гипотезы}
+	Материал изотропный, а деформации малы, поэтому
+	\begin{minipage}{0.62\textwidth}
+		\begin{gather*}
+		\widehat{\boldsymbol{\varepsilon}} = 
+	\dfrac{\nabla \boldsymbol{u} + (\nabla \boldsymbol{u})^T}{2},
+		\quad
+		\widehat{\boldsymbol{\alpha}}^T = \alpha^T \widehat{\text{\textbf{I}}}_2,
+		\quad
+		\widehat{\boldsymbol{\lambda}} = \lambda \widehat{\text{\textbf{I}}}_2, \\
+		C_{ijkl} =
+		\dfrac{\nu E}{1 - \nu^2} \delta_{ij} \delta_{kl} +
+		\dfrac{E}{2(1 + \nu)} (\delta_{ik} \delta_{jl} + \delta_{il} \delta_{jk}).
+	\end{gather*}
+	\end{minipage}
+	\begin{minipage}{0.37\textwidth}
+		\begin{center}
+		\center{\includegraphics[width=\textwidth]{pics/NonlocalArea.png}} \\
+		Область $S'(\boldsymbol{x})$, заданная радиусом~нелокальности~$r$.
+	\end{center}
+	\end{minipage}
+	Граничные условия
+	\begin{gather*}
+		T|_{\Gamma_1} = T_{\Gamma} (\boldsymbol{x}),
+		\quad
+		\boldsymbol{n} \cdot \boldsymbol{q}|_{\Gamma_2} = f(\boldsymbol{x}),
+		\quad
+		\boldsymbol{n} \cdot \boldsymbol{q}|_{\Gamma_3} = \alpha (T_a(\boldsymbol{x}) - T(\boldsymbol{x}))), \\
+		\boldsymbol{u}|_{\Gamma_4} = \boldsymbol{d} (\boldsymbol{x}),
+		\quad
+		\boldsymbol{n} \cdot \widehat{\boldsymbol{\sigma}}|_{\Gamma_5} = \boldsymbol{p} (\boldsymbol{x}).
+	\end{gather*}
+	
+	
+\end{frame}
+
+\begin{comment}
 \subsection{Нелокальный интегральный оператор}
 \begin{frame}{Нелокальный интегральный оператор}
 	\begin{gather*}
 		\mathcal{N} [f(\boldsymbol{x})] = 
 		p_1 f(\boldsymbol{x}) + 
-		p_2 \int\limits_{S'(\boldsymbol{x}') \cap S} 
+		p_2 \int\limits_{S'(\boldsymbol{x}) \cap S} 
 			\varphi(\boldsymbol{x}, \boldsymbol{x}') f(\boldsymbol{x}')
-		dS'(\boldsymbol{x}'),
+		dS'(\boldsymbol{x}),
 		\quad
 		\boldsymbol{x}' \in S'(\boldsymbol{x}).
 	\end{gather*}
-	$f(\boldsymbol{x})$ --- выражение; \\
-	$p_1 > 0$ и $p_2 \geqslant 0$ --- веса модели, $p_1 + p_2 = 1$; \\
-	$\varphi(\boldsymbol{x}, \boldsymbol{x}')$~---~функция нелокального влияния на области $S'(\boldsymbol{x})$; \\
+	$f(\boldsymbol{x})$ --- функция; $p_1 > 0$ и $p_2 \geqslant 0$ --- весовые параметры модели, $p_1 + p_2 = 1$; \\
+	$\varphi(|\boldsymbol{x} - \boldsymbol{x}'|)$~---~нормированная, положительная функция нелокального влияния, определённая на области $S'(\boldsymbol{x})$; \\
 	$S'(\boldsymbol{x})$ --- область нелокального влияния с центром в точке $\boldsymbol{x} \in S$;\\
 	$S$ --- область занимаемая рассматриваемым телом.
 	
@@ -35,7 +98,7 @@
         \includegraphics[width=\linewidth]{pics/PolynomialInfluenceQ.pdf}
     \end{minipage}
     \begin{center}
-	    Портреты полиномиальных функций влияния в сечении
+	    Возможные портреты функций влияния в сечении
     	\end{center}
 \end{frame}
 
@@ -81,6 +144,7 @@
 		\boldsymbol{n} \cdot \widehat{\boldsymbol{\sigma}}|_{\Gamma_5} = \boldsymbol{p} (\boldsymbol{x}).
 	\end{gather*}
 \end{frame}
+\end{comment}
 
 \section{Численный алгоритм решения}
 
@@ -113,7 +177,7 @@
 	\end{gather*}
 	$\textbf{K}^{ee}_{nm}$ --- ядро интегрирование, зависящее от исследуемого \mbox{уравнения.}
 	
-	\color{blue} Синий \color{black} --- алгоритм формирования портрета матрицы.
+	\color{blue} Синий \color{black} --- алгоритм, формирующий портрет матрицы.
 	
 	\color{red} Красный \color{black} --- интегрирование.
 \end{frame}
