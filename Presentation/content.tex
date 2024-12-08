@@ -12,9 +12,9 @@
 	\begin{gather*}
 		\nabla \cdot \boldsymbol{q} = q_V,
 		\quad
-		-\nabla \cdot \widehat{\boldsymbol{\sigma}} = \boldsymbol{b}
+		-\nabla \cdot \widehat{\boldsymbol{\sigma}} = \boldsymbol{b},
 	\end{gather*}
-	где вектор плотности теплового потока $\boldsymbol{q}$ и тензор напряжений $\widehat{\boldsymbol{\sigma}}$ определены
+	где вектор плотности теплового потока $\boldsymbol{q}$ и тензор напряжений $\widehat{\boldsymbol{\sigma}}$
 	\begin{gather*}
 		\boldsymbol{q}(\boldsymbol{x}) = 
 			-p_1 \widehat{\boldsymbol{\lambda}} \cdot \nabla T
@@ -28,26 +28,28 @@
 		    dS'(\boldsymbol{x}),
 	\end{gather*}
 	$p_1 > 0$ и $p_2 \geqslant 0$ --- весовые параметры модели, $p_1 + p_2 = 1$; \\
-	$\varphi(|\boldsymbol{x} - \boldsymbol{x}'|)$~---~нормированная, положительная функция нелокального влияния, определённая на области $S'(\boldsymbol{x})$; \\
+	$\varphi(|\boldsymbol{x} - \boldsymbol{x}'|)$~---~нормированная, положительная функция нелокального влияния, определённая на области $S'(\boldsymbol{x})$, $\boldsymbol{x}' \in S'(\boldsymbol{x})$; \\
 	$S'(\boldsymbol{x})$ --- область нелокального влияния с центром в точке $\boldsymbol{x} \in S$;\\
 	$S$ --- область занимаемая рассматриваемым телом.
 \end{frame}
 
 \begin{frame}{Принятые гипотезы}
-	Материал изотропный, а деформации малы, поэтому
+	Считаем, что материал изотропный, деформации малы и тело находится в плоском напряжённом состоянии, поэтому
 	\begin{minipage}{0.62\textwidth}
 		\begin{gather*}
 		\widehat{\boldsymbol{\varepsilon}} = 
-	\dfrac{\nabla \boldsymbol{u} + (\nabla \boldsymbol{u})^T}{2},
+	\dfrac{1}{2} \left( \nabla \boldsymbol{u} + (\nabla \boldsymbol{u})^T \right),
 		\quad
-		\widehat{\boldsymbol{\alpha}}^T = \alpha^T \widehat{\text{\textbf{I}}}_2,
+		\widehat{\boldsymbol{\alpha}}^T = \alpha^T \widehat{\text{\textbf{I}}},
 		\quad
-		\widehat{\boldsymbol{\lambda}} = \lambda \widehat{\text{\textbf{I}}}_2, \\
+		\widehat{\boldsymbol{\lambda}} = \lambda \widehat{\text{\textbf{I}}}, \\
 		C_{ijkl} =
 		\dfrac{\nu E}{1 - \nu^2} \delta_{ij} \delta_{kl} +
-		\dfrac{E}{2(1 + \nu)} (\delta_{ik} \delta_{jl} + \delta_{il} \delta_{jk}).
+		\dfrac{E}{2(1 + \nu)} (\delta_{ik} \delta_{jl} + \delta_{il} \delta_{jk}), \\
+		\varphi(|\boldsymbol{x} - \boldsymbol{x}'|) = \dfrac{2}{\pi r^2} \left( 1 - \dfrac{|\boldsymbol{x} - \boldsymbol{x}'|^2}{r} \right).
 	\end{gather*}
 	\end{minipage}
+	\hfill
 	\begin{minipage}{0.37\textwidth}
 		\begin{center}
 		\center{\includegraphics[width=\textwidth]{pics/NonlocalArea.png}} \\
@@ -166,18 +168,19 @@
 	
 	Ассемблирование классических матриц
 	\begin{gather*}
-		\widehat{\textbf{K}}^L_{\mathcal{F}} =
+		\widehat{\textbf{K}}^L_{T} =
 		\color{blue}
 		\sum\limits_{e \in S_h}
 		\sum\limits_{n,m \in I^e}
 		\color{red}
 		\sum\limits_{q \in Q^e}
 		\color{black}
-		w_q \textbf{K}^{ee}_{nm} (\boldsymbol{x}_q, \boldsymbol{x}_q) J_q^e,
+		w_q N_{n,i}^e (\boldsymbol{x}_q) N_{n,j}^e (\boldsymbol{x}_q) J_q^e.
+		%w_q \textbf{K}^{ee}_{nm} (\boldsymbol{x}_q, \boldsymbol{x}_q) J_q^e,
 	\end{gather*}
-	$\textbf{K}^{ee}_{nm}$ --- ядро интегрирование, зависящее от исследуемого \mbox{уравнения.}
+	%$\textbf{K}^{ee}_{nm}$ --- ядро интегрирование, зависящее от исследуемого \mbox{уравнения.}
 	
-	\color{blue} Синий \color{black} --- алгоритм, формирующий портрет матрицы.
+	\color{blue} Синий \color{black} --- алгоритм заполнения матрицы.
 	
 	\color{red} Красный \color{black} --- интегрирование.
 \end{frame}
@@ -201,7 +204,7 @@
 	\color{red}
 	\sum\limits_{q' \in Q^{e'}}
 	\color{black}
-	w_{q'} \varphi(\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \lambda_{ij} N_{m',j}^{e'} (\boldsymbol{x}_{q'}) J_{q'}^{e'}.
+	w_{q'} \varphi(|\boldsymbol{x}_q - \boldsymbol{x}_{q'}|) \lambda_{ij} N_{m',j}^{e'} (\boldsymbol{x}_{q'}) J_{q'}^{e'}.
 \end{gather*}
 Элементная аппроксимация:
 \begin{gather*}
@@ -219,7 +222,7 @@
 	\color{red}
 	\sum\limits_{q' \in Q^{e'}}
 	\color{black}
-	w_{q'} \varphi(\boldsymbol{x}_q, \boldsymbol{x}_{q'}) \lambda_{ij} N_{m',j}^{e'} J_{q'}^{e'}.
+	w_{q'} \varphi(|\boldsymbol{x}_q - \boldsymbol{x}_{q'}|) \lambda_{ij} N_{m',j}^{e'} J_{q'}^{e'}.
 \end{gather*}
 
 \begin{minipage}[b][][b]{0.49\textwidth}
@@ -312,6 +315,8 @@
 		\begin{gather*}
 			\text{cond} \widehat{\textbf{K}} = \sqrt{\dfrac{|\lambda_{\max}|}{|\lambda_{\min}|}}.
 		\end{gather*}
+		
+		В работе использован метод сопряжённых градиентов.
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.5\textwidth}
@@ -499,7 +504,7 @@ $T_0$ --- решение классической задачи при тех ж�
 		(б)
 	\end{minipage}
 	
-	Распределение напряжения $\overline{\sigma}_{11}$ в сечении поперёк оси нагружения
+	Распределение напряжения $\overline{\sigma}_{11}$ и компонента вектора плотности теплового потока $\overline{q}_1$ в сечении поперёк оси нагружения
 \end{frame}
 
 \subsection{Задача Кирша}
