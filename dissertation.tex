@@ -58,7 +58,9 @@
 \input{common/renames}
 
 %%% Структура диссертации (ГОСТ Р 7.0.11-2011, 4)
-\include{Dissertation/title}           % Титульный лист
+%\include{Dissertation/title}           % Титульный лист
+\includepdf[pages=-]{NKR/title.pdf} % Титульный лист
+\include{Dissertation/referat}    % Аннотация
 \include{Dissertation/contents}        % Оглавление
 \include{Dissertation/dictionary}      % Словарь терминов
 \ifnumequal{\value{contnumfig}}{1}{}{\counterwithout{figure}{chapter}}
@@ -85,8 +87,8 @@
 % Оформление заголовков приложений ближе к ГОСТ:
 %\setlength{\midchapskip}{20pt}
 %\renewcommand*{\afterchapternum}{\par\nobreak\vskip \midchapskip}
-%\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами
-\renewcommand{\thechapter}{\arabic{chapter}} % Чтобы приложения цифрами нумеровались
+\renewcommand\thechapter{\Asbuk{chapter}} % Чтобы приложения русскими буквами
+%\renewcommand{\thechapter}{\arabic{chapter}} % Чтобы приложения цифрами нумеровались
 
 \include{Dissertation/appendix}        % Приложения
 
